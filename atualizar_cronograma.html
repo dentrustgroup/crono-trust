@@ -206,6 +206,24 @@
             font-size: 1.2em;
         }
 
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(2, 195, 154, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-light);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            resize: vertical;
+        }
+
+        textarea::placeholder {
+            color: rgba(226, 232, 240, 0.3);
+        }
+
         @media (max-width: 600px) {
             .card {
                 padding: 30px 20px;
@@ -249,7 +267,7 @@
                     <div class="code-block">
                         SEMANA,DIA,DATA,MARCA,TEMA,REDE,STATUS
                     </div>
-                    <strong>Copie tudo (Ctrl+C)</strong>
+                    <strong>Copie tudo (Ctrl+C ou Cmd+C)</strong>
                 </div>
             </div>
 
@@ -260,7 +278,7 @@
                 </div>
                 <div class="step-content">
                     Cole os dados do Google Sheet neste campo:
-                    <textarea id="csvInput" placeholder="Cole aqui os dados do Google Sheet..." style="width: 100%; height: 150px; margin-top: 10px; padding: 12px; border-radius: 8px; border: 1px solid rgba(2, 195, 154, 0.3); background: rgba(0, 0, 0, 0.2); color: var(--text-light); font-family: 'Courier New', monospace; font-size: 0.9em; resize: vertical;"></textarea>
+                    <textarea id="csvInput" placeholder="Cole aqui os dados do Google Sheet..."></textarea>
                 </div>
             </div>
 
@@ -302,17 +320,38 @@
             }
 
             try {
-                // Parse CSV
-                const lines = csvInput.split('\n');
-                const headers = lines[0].split(',').map(h => h.trim().toUpperCase());
+                // Limpar dados
+                const cleaned = csvInput
+                    .replace(/\r\n/g, '\n')
+                    .replace(/\r/g, '\n')
+                    .trim();
+
+                const lines = cleaned.split('\n').filter(line => line.trim().length > 0);
                 
+                if (lines.length < 2) {
+                    alert('⚠️ Nenhum dado válido encontrado!');
+                    return;
+                }
+
+                // Parse com flexibilidade
                 const dados = [];
-                for (let i = 1; i < lines.length; i++) {
-                    if (!lines[i].trim()) continue;
+                let isHeader = true;
+
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+
+                    // Pular cabeçalho
+                    if (isHeader && (line.includes('SEMANA') || line.includes('semana'))) {
+                        isHeader = false;
+                        continue;
+                    }
+
+                    // Tentar fazer parse da linha
+                    const values = line.split(',').map(v => v.trim());
                     
-                    const values = lines[i].split(',').map(v => v.trim());
-                    
-                    if (values[3] && values[3].length > 0) { // Verificar se marca não está vazia
+                    if (values.length >= 4 && values[3]) {
+                        // Marca não pode estar vazia (índice 3)
                         dados.push({
                             semana: values[0] || '',
                             dia: values[1] || '',
@@ -326,7 +365,7 @@
                 }
 
                 if (dados.length === 0) {
-                    alert('⚠️ Nenhum dado válido encontrado. Verifique o formato dos dados!');
+                    alert('⚠️ Nenhuma postagem válida encontrada.\n\nCertifique-se de que a coluna MARCA (4ª coluna) não está vazia nas linhas de dados.');
                     return;
                 }
 
@@ -345,14 +384,17 @@
                     successBox.classList.remove('show');
                 }, 5000);
 
+                console.log(`✅ ${dados.length} postagens sincronizadas!`);
+
             } catch (error) {
-                alert('❌ Erro ao processar dados: ' + error.message);
+                alert('❌ Erro ao processar dados:\n\n' + error.message);
+                console.error(error);
             }
         }
 
-        // Permitir sincronizar com Enter
+        // Permitir sincronizar com Ctrl+Enter
         document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.key === 'Enter') {
+            if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
                 sincronizar();
             }
         });
