@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Cronograma — Trust Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #065A82;
+            --secondary: #02c39a;
+            --dark: #0f172a;
+            --darker: #0a0f1f;
+            --text-light: #e2e8f0;
+            --text-muted: #cbd5e1;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, #1a2744 50%, var(--dark) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(2, 195, 154, 0.2);
+            border-radius: 20px;
+            padding: 50px 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .step {
+            background: rgba(2, 195, 154, 0.05);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--darker);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 700;
+            margin-right: 12px;
+            margin-bottom: 10px;
+        }
+
+        .step h3 {
+            color: var(--secondary);
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            display: inline;
+            vertical-align: middle;
+        }
+
+        .step-content {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(2, 195, 154, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #6ee7b7;
+            margin: 15px 0;
+            word-break: break-all;
+            overflow-x: auto;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 30px;
+            border: 2px solid var(--secondary);
+            background: var(--secondary);
+            color: var(--darker);
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(2, 195, 154, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(2, 195, 154, 0.1);
+        }
+
+        .success-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            color: #6ee7b7;
+            text-align: center;
+            display: none;
+        }
+
+        .success-box.show {
+            display: block;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <div class="logo-badge">📅 TRUST GROUP</div>
+                <h1>Atualizar Cronograma</h1>
+                <p>Sincronize os dados do Google Sheet com o site</p>
+            </div>
+
+            <div id="successBox" class="success-box">
+                <strong>✅ Cronograma atualizado com sucesso!</strong>
+                <p style="margin-top: 8px;">Os dados foram sincronizados. Visite o site para conferir!</p>
+            </div>
+
+            <div class="step">
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <span class="step-number">1</span>
+                    <h3>Copiar dados do Google Sheet</h3>
+                </div>
+                <div class="step-content">
+                    Abra o Google Sheet e selecione <strong>TODAS</strong> as linhas com dados (incluindo cabeçalho):
+                    <div class="code-block">
+                        SEMANA,DIA,DATA,MARCA,TEMA,REDE,STATUS
+                    </div>
+                    <strong>Copie tudo (Ctrl+C)</strong>
+                </div>
+            </div>
+
+            <div class="step">
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <span class="step-number">2</span>
+                    <h3>Colar dados aqui</h3>
+                </div>
+                <div class="step-content">
+                    Cole os dados do Google Sheet neste campo:
+                    <textarea id="csvInput" placeholder="Cole aqui os dados do Google Sheet..." style="width: 100%; height: 150px; margin-top: 10px; padding: 12px; border-radius: 8px; border: 1px solid rgba(2, 195, 154, 0.3); background: rgba(0, 0, 0, 0.2); color: var(--text-light); font-family: 'Courier New', monospace; font-size: 0.9em; resize: vertical;"></textarea>
+                </div>
+            </div>
+
+            <div class="step">
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <span class="step-number">3</span>
+                    <h3>Sincronizar</h3>
+                </div>
+                <div class="step-content">
+                    Clique no botão abaixo para sincronizar os dados:
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn" onclick="sincronizar()">
+                    <span class="icon">🔄</span> Sincronizar Dados
+                </button>
+                <a href="https://dentrustgroup.github.io/crono-trust/" class="btn btn-secondary" target="_blank">
+                    <span class="icon">🌐</span> Ver Site
+                </a>
+            </div>
+
+            <div style="margin-top: 40px; padding: 20px; background: rgba(2, 195, 154, 0.05); border-radius: 10px; border-left: 4px solid var(--secondary);">
+                <p style="color: var(--secondary); font-weight: 600; margin-bottom: 10px;">💡 DICA:</p>
+                <p style="color: var(--text-muted); font-size: 0.95em; line-height: 1.6;">
+                    Você pode usar este arquivo toda vez que quiser atualizar o cronograma. Basta abrir, colar os novos dados do Google Sheet, clicar em "Sincronizar Dados" e pronto!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sincronizar() {
+            const csvInput = document.getElementById('csvInput').value.trim();
+
+            if (!csvInput) {
+                alert('⚠️ Por favor, cole os dados do Google Sheet primeiro!');
+                return;
+            }
+
+            try {
+                // Parse CSV
+                const lines = csvInput.split('\n');
+                const headers = lines[0].split(',').map(h => h.trim().toUpperCase());
+                
+                const dados = [];
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+                    
+                    const values = lines[i].split(',').map(v => v.trim());
+                    
+                    if (values[3] && values[3].length > 0) { // Verificar se marca não está vazia
+                        dados.push({
+                            semana: values[0] || '',
+                            dia: values[1] || '',
+                            data: values[2] || '',
+                            marca: values[3] || '',
+                            tema: values[4] || '',
+                            rede: values[5] || '',
+                            status: (values[6] || 'agendado').toLowerCase().trim()
+                        });
+                    }
+                }
+
+                if (dados.length === 0) {
+                    alert('⚠️ Nenhum dado válido encontrado. Verifique o formato dos dados!');
+                    return;
+                }
+
+                // Salvar em localStorage
+                localStorage.setItem('cronogramaData', JSON.stringify(dados));
+                
+                // Mostrar sucesso
+                const successBox = document.getElementById('successBox');
+                successBox.classList.add('show');
+                
+                // Limpar input
+                document.getElementById('csvInput').value = '';
+                
+                // Esconder mensagem após 5 segundos
+                setTimeout(() => {
+                    successBox.classList.remove('show');
+                }, 5000);
+
+            } catch (error) {
+                alert('❌ Erro ao processar dados: ' + error.message);
+            }
+        }
+
+        // Permitir sincronizar com Enter
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'Enter') {
+                sincronizar();
+            }
+        });
+    </script>
+</body>
+</html>
