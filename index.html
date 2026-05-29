@@ -1,12 +1,3 @@
-INSTRUÇÕES:
-1. No GitHub (crono-trust), abra o arquivo index.html
-2. Clique no lápis (Edit)
-3. Selecione TUDO (Ctrl+A) e delete
-4. Cole TUDO que está abaixo
-5. Commit changes
-
-=== COPIE TUDO ABAIXO (SEM ESTE TEXTO) ===
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -268,21 +259,27 @@ INSTRUÇÕES:
         ];
 
         let currentMarcaFilter = "all";
+        let lastData = null;
 
         function loadData() {
-            console.log('🔄 Carregando dados...');
             const savedData = localStorage.getItem('cronogramaData');
-            console.log('localStorage tem dados?', savedData ? 'SIM' : 'NÃO');
             
             if (savedData) {
                 try {
-                    cronogramaData = JSON.parse(savedData);
-                    console.log('✅ Dados carregados do localStorage!', cronogramaData.length, 'postagens');
+                    const newData = JSON.parse(savedData);
+                    const newDataStr = JSON.stringify(newData);
+                    const oldDataStr = JSON.stringify(cronogramaData);
+                    
+                    // SÓ recarrega se dados mudaram
+                    if (newDataStr !== oldDataStr) {
+                        cronogramaData = newData;
+                        console.log('✅ Dados atualizados!', cronogramaData.length, 'postagens');
+                        renderAll();
+                    }
                 } catch (e) {
-                    console.error('❌ Erro ao parsear dados:', e);
+                    console.error('❌ Erro:', e);
                 }
             }
-            renderAll();
         }
 
         function renderAll() {
@@ -389,15 +386,13 @@ INSTRUÇÕES:
 
         // Carrega ao abrir
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('📱 Página carregada!');
             loadData();
         });
         
-        // Recarrega a cada 2 segundos
+        // Verifica a cada 5 segundos SÓ SE MUDOU
         setInterval(() => {
-            console.log('🔄 Verificando atualizações...');
             loadData();
-        }, 2000);
+        }, 5000);
     </script>
 </body>
 </html>
