@@ -487,30 +487,40 @@
             var grid = document.getElementById('statsGrid');
             grid.innerHTML = '';
 
+            var total = cronogramaData.length;
+            var agendadas = 0;
+            var rascunhos = 0;
+            var marcasSet = {};
+
+            for (var i = 0; i < cronogramaData.length; i++) {
+                if (cronogramaData[i].status === 'agendado') agendadas++;
+                if (cronogramaData[i].status === 'rascunho') rascunhos++;
+                marcasSet[cronogramaData[i].marca] = true;
+            }
+
             var stats = [
-                { label: 'Total de Postagens', value: cronogramaData.length },
-                { label: 'Agendadas', value: cronogramaData.filter(function(p) { return p.status === 'agendado'; }).length },
-                { label: 'Em Rascunho', value: cronogramaData.filter(function(p) { return p.status === 'rascunho'; }).length },
-                { label: 'Marcas Ativas', value: new Set(cronogramaData.map(function(p) { return p.marca; })).size }
+                { label: 'Total de Postagens', value: total },
+                { label: 'Agendadas', value: agendadas },
+                { label: 'Em Rascunho', value: rascunhos },
+                { label: 'Marcas Ativas', value: Object.keys(marcasSet).length }
             ];
 
-            stats.forEach(function(stat) {
+            for (var i = 0; i < stats.length; i++) {
                 var card = document.createElement('div');
                 card.className = 'stat-card';
-                card.innerHTML = '<div class="stat-number">' + stat.value + '</div><div class="stat-label">' + stat.label + '</div>';
+                card.innerHTML = '<div class="stat-number">' + stats[i].value + '</div><div class="stat-label">' + stats[i].label + '</div>';
                 grid.appendChild(card);
-            });
+            }
         }
 
         function renderCards() {
             var container = document.getElementById('cardsView');
             container.innerHTML = '';
 
-            var filtered = cronogramaData.filter(function(post) {
-                return currentMarcaFilter === 'all' || post.marca === currentMarcaFilter;
-            });
+            for (var i = 0; i < cronogramaData.length; i++) {
+                var post = cronogramaData[i];
+                if (currentMarcaFilter !== 'all' && post.marca !== currentMarcaFilter) continue;
 
-            filtered.forEach(function(post) {
                 var card = document.createElement('div');
                 card.className = 'post-card';
                 card.setAttribute('data-marca', post.marca);
@@ -529,7 +539,7 @@
                     '<span class="status ' + statusClass + '">' + statusText + '</span>';
 
                 container.appendChild(card);
-            });
+            }
         }
 
         function renderResumo() {
@@ -538,12 +548,25 @@
 
             var marcas = ['Pier 8', 'Trust Serviços', 'Navigal', 'Taglog'];
 
-            marcas.forEach(function(marca) {
-                var postagens = cronogramaData.filter(function(p) { return p.marca === marca; });
-                if (postagens.length === 0) return;
+            for (var m = 0; m < marcas.length; m++) {
+                var marca = marcas[m];
+                var postagens = [];
+                
+                for (var i = 0; i < cronogramaData.length; i++) {
+                    if (cronogramaData[i].marca === marca) {
+                        postagens.push(cronogramaData[i]);
+                    }
+                }
+                
+                if (postagens.length === 0) continue;
 
-                var agendadas = postagens.filter(function(p) { return p.status === 'agendado'; }).length;
-                var rascunhos = postagens.filter(function(p) { return p.status === 'rascunho'; }).length;
+                var agendadas = 0;
+                var rascunhos = 0;
+                
+                for (var i = 0; i < postagens.length; i++) {
+                    if (postagens[i].status === 'agendado') agendadas++;
+                    if (postagens[i].status === 'rascunho') rascunhos++;
+                }
 
                 var card = document.createElement('div');
                 card.className = 'resumo-card';
@@ -565,14 +588,15 @@
                     '</div>';
 
                 grid.appendChild(card);
-            });
+            }
         }
 
         function filterMarca(marca) {
             currentMarcaFilter = marca;
-            document.querySelectorAll('.controls .btn').forEach(function(btn) {
-                btn.classList.remove('active');
-            });
+            var buttons = document.getElementsByClassName('btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
             event.target.classList.add('active');
             renderCards();
         }
