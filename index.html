@@ -9,9 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         html { scroll-behavior: smooth; }
-        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #0a0f1f 0%, #1a2744 50%, #0f172a 100%);
@@ -20,383 +18,81 @@
             position: relative;
             overflow-x: hidden;
         }
-        
-        .container { 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            padding: 0 20px; 
-            position: relative; 
-            z-index: 2; 
-        }
-        
-        header { 
-            padding: 80px 40px; 
-            text-align: center; 
-            margin-bottom: 60px; 
-            position: relative;
-        }
-        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+        header { padding: 80px 40px; text-align: center; margin-bottom: 60px; position: relative; }
         .logo-badge {
-            display: inline-block; 
-            background: linear-gradient(135deg, #065A82, #02c39a);
-            padding: 12px 24px; 
-            border-radius: 50px; 
-            font-size: 0.85em; 
-            font-weight: 600; 
-            margin-bottom: 20px;
+            display: inline-block; background: linear-gradient(135deg, #065A82, #02c39a);
+            padding: 12px 24px; border-radius: 50px; font-size: 0.85em; font-weight: 600; margin-bottom: 20px;
         }
-        
-        header h1 {
-            font-size: 4em; 
-            font-weight: 800; 
-            margin-bottom: 15px;
-            color: #02c39a;
-            letter-spacing: -1px;
-        }
-        
-        header p {
-            font-size: 1.3em; 
-            color: #cbd5e1; 
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-        
-        .month-display {
-            display: inline-block; 
-            font-size: 2.5em; 
-            font-weight: 700; 
-            color: #02c39a;
-            position: relative; 
-            padding: 10px 20px;
-        }
-
-        .stats-grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px; 
-            margin-bottom: 60px;
-        }
-        
+        header h1 { font-size: 4em; font-weight: 800; margin-bottom: 15px; color: #02c39a; letter-spacing: -1px; }
+        header p { font-size: 1.3em; color: #cbd5e1; margin-bottom: 30px; font-weight: 300; }
+        .month-display { display: inline-block; font-size: 2.5em; font-weight: 700; color: #02c39a; position: relative; padding: 10px 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 60px; }
         .stat-card {
-            background: rgba(255, 255, 255, 0.05); 
-            border: 1px solid rgba(2, 195, 154, 0.2);
-            padding: 25px; 
-            border-radius: 16px; 
-            text-align: center;
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(2, 195, 154, 0.2);
+            padding: 25px; border-radius: 16px; text-align: center; transition: all 0.3s ease;
         }
-        
-        .stat-card:hover {
-            background: rgba(2, 195, 154, 0.1); 
-            border-color: #02c39a; 
-            transform: translateY(-5px);
-        }
-        
-        .stat-number { 
-            font-size: 2.5em; 
-            font-weight: 800; 
-            color: #02c39a; 
-            margin-bottom: 8px; 
-        }
-        
-        .stat-label { 
-            font-size: 0.9em; 
-            color: #cbd5e1; 
-            font-weight: 500; 
-        }
-        
-        .controls {
-            display: flex; 
-            gap: 12px; 
-            margin-bottom: 50px; 
-            flex-wrap: wrap; 
-            justify-content: center;
-        }
-        
+        .stat-card:hover { background: rgba(2, 195, 154, 0.1); border-color: #02c39a; transform: translateY(-5px); }
+        .stat-number { font-size: 2.5em; font-weight: 800; color: #02c39a; margin-bottom: 8px; }
+        .stat-label { font-size: 0.9em; color: #cbd5e1; font-weight: 500; }
+        .controls { display: flex; gap: 12px; margin-bottom: 50px; flex-wrap: wrap; justify-content: center; }
         .btn {
-            padding: 12px 24px; 
-            border: 2px solid #02c39a; 
-            background: rgba(2, 195, 154, 0.1);
-            color: #02c39a; 
-            border-radius: 12px; 
-            font-size: 0.95em; 
-            font-weight: 600;
-            cursor: pointer; 
-            transition: all 0.3s ease; 
-            font-family: 'Poppins', sans-serif;
+            padding: 12px 24px; border: 2px solid #02c39a; background: rgba(2, 195, 154, 0.1);
+            color: #02c39a; border-radius: 12px; font-size: 0.95em; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease; font-family: 'Poppins', sans-serif;
         }
-        
-        .btn:hover { 
-            background: #02c39a; 
-            color: #0a0f1f; 
-            transform: translateY(-2px); 
-        }
-        
-        .btn.active { 
-            background: #02c39a; 
-            color: #0a0f1f; 
-        }
-        
-        .cards-grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px; 
-            margin-bottom: 60px;
-        }
-        
+        .btn:hover { background: #02c39a; color: #0a0f1f; transform: translateY(-2px); }
+        .btn.active { background: #02c39a; color: #0a0f1f; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
         .post-card {
-            background: rgba(255, 255, 255, 0.03); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #02c39a;
-            border-radius: 16px; 
-            padding: 28px;
-            transition: all 0.3s ease; 
-            position: relative;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #02c39a; border-radius: 16px; padding: 28px;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
         }
-        
-        .post-card[data-marca="Pier 8"] {
-            border-left-color: #3B82F6;
-        }
-        
-        .post-card[data-marca="Trust Serviços"] {
-            border-left-color: #10B981;
-        }
-        
-        .post-card[data-marca="Navigal"] {
-            border-left-color: #8B5CF6;
-        }
-        
-        .post-card[data-marca="Taglog"] {
-            border-left-color: #F59E0B;
-        }
-        
-        .post-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-8px); 
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-        
-        .card-header {
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-start;
-            margin-bottom: 20px; 
-            gap: 12px;
-        }
-        
-        .marca-badge {
-            color: white; 
-            padding: 8px 16px; 
-            border-radius: 8px;
-            font-size: 0.8em; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-        }
-        
-        .post-card[data-marca="Pier 8"] .marca-badge {
-            background: #3B82F6;
-        }
-        
-        .post-card[data-marca="Trust Serviços"] .marca-badge {
-            background: #10B981;
-        }
-        
-        .post-card[data-marca="Navigal"] .marca-badge {
-            background: #8B5CF6;
-        }
-        
-        .post-card[data-marca="Taglog"] .marca-badge {
-            background: #F59E0B;
-        }
-        
-        .semana-badge {
-            background: rgba(2, 195, 154, 0.15); 
-            color: #02c39a; 
-            padding: 8px 14px;
-            border-radius: 8px; 
-            font-size: 0.75em; 
-            font-weight: 700;
-        }
-        
-        .card-date { 
-            font-size: 0.9em; 
-            color: #cbd5e1; 
-            margin-bottom: 15px; 
-        }
-        
-        .card-title { 
-            font-size: 1.15em; 
-            font-weight: 700; 
-            color: #ffffff; 
-            margin-bottom: 16px; 
-            line-height: 1.5; 
-        }
-        
-        .meta-tag {
-            background: rgba(255, 255, 255, 0.08); 
-            padding: 6px 12px; 
-            border-radius: 6px;
-            font-size: 0.8em; 
-            color: #cbd5e1; 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: 500;
-            margin-bottom: 16px;
-            display: inline-block;
-        }
-        
-        .status {
-            padding: 8px 14px; 
-            border-radius: 8px; 
-            font-size: 0.8em; 
-            font-weight: 700;
-            display: inline-block; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
-            margin-top: 10px;
-        }
-        
-        .status.agendado {
-            background: rgba(16, 185, 129, 0.15); 
-            color: #6ee7b7;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        
-        .status.rascunho {
-            background: rgba(245, 158, 11, 0.15); 
-            color: #fde047;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-        
-        .resumo {
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(2, 195, 154, 0.2);
-            border-radius: 16px; 
-            padding: 40px;
-            margin-bottom: 60px;
-        }
-        
-        .resumo h2 {
-            font-size: 2em; 
-            margin-bottom: 30px; 
-            color: #02c39a;
-            border-bottom: 3px solid #02c39a; 
-            padding-bottom: 15px;
-        }
-        
-        .resumo-grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-            gap: 25px;
-        }
-        
-        .resumo-card {
-            background: rgba(255, 255, 255, 0.05); 
-            border-left: 4px solid #02c39a;
-            padding: 25px; 
-            border-radius: 12px; 
-            transition: all 0.3s ease;
-        }
-        
-        .resumo-card[data-marca="Pier 8"] {
-            border-left-color: #3B82F6;
-        }
-        
-        .resumo-card[data-marca="Trust Serviços"] {
-            border-left-color: #10B981;
-        }
-        
-        .resumo-card[data-marca="Navigal"] {
-            border-left-color: #8B5CF6;
-        }
-        
-        .resumo-card[data-marca="Taglog"] {
-            border-left-color: #F59E0B;
-        }
-        
-        .resumo-card:hover { 
-            background: rgba(255, 255, 255, 0.08); 
-            transform: translateY(-3px); 
-        }
-        
-        .resumo-card h3 {
-            margin-bottom: 15px; 
-            font-size: 1.2em; 
-            font-weight: 700;
-        }
-        
-        .resumo-card[data-marca="Pier 8"] h3 {
-            color: #3B82F6;
-        }
-        
-        .resumo-card[data-marca="Trust Serviços"] h3 {
-            color: #10B981;
-        }
-        
-        .resumo-card[data-marca="Navigal"] h3 {
-            color: #8B5CF6;
-        }
-        
-        .resumo-card[data-marca="Taglog"] h3 {
-            color: #F59E0B;
-        }
-        
-        .resumo-stat {
-            display: flex; 
-            justify-content: space-between; 
-            margin: 12px 0; 
-            font-size: 0.9em;
-            padding: 8px 0; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .resumo-stat strong { 
-            color: #ffffff; 
-            font-weight: 700; 
-        }
-        
-        footer {
-            background: rgba(255, 255, 255, 0.02); 
-            border-top: 1px solid rgba(2, 195, 154, 0.2);
-            padding: 50px 40px; 
-            border-radius: 16px 16px 0 0; 
-            margin-top: 80px; 
-            text-align: center;
-        }
-        
-        footer h3 { 
-            color: #02c39a; 
-            margin-bottom: 25px; 
-            font-size: 1.5em; 
-        }
-        
-        footer ul {
-            list-style: none; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px; 
-            margin-bottom: 30px;
-        }
-        
-        footer li { 
-            color: #cbd5e1; 
-            font-size: 0.95em; 
-            line-height: 1.8; 
-        }
-        
-        footer li strong { 
-            color: #02c39a; 
-        }
-        
-        .update-date {
-            color: #64748b; 
-            font-size: 0.9em; 
-            margin-top: 30px; 
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        .post-card[data-marca="Pier 8"] { border-left-color: #3B82F6; }
+        .post-card[data-marca="Trust Serviços"] { border-left-color: #10B981; }
+        .post-card[data-marca="Navigal"] { border-left-color: #8B5CF6; }
+        .post-card[data-marca="Taglog"] { border-left-color: #F59E0B; }
+        .post-card:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; gap: 12px; }
+        .marca-badge { color: white; padding: 8px 16px; border-radius: 8px; font-size: 0.8em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .post-card[data-marca="Pier 8"] .marca-badge { background: #3B82F6; }
+        .post-card[data-marca="Trust Serviços"] .marca-badge { background: #10B981; }
+        .post-card[data-marca="Navigal"] .marca-badge { background: #8B5CF6; }
+        .post-card[data-marca="Taglog"] .marca-badge { background: #F59E0B; }
+        .semana-badge { background: rgba(2, 195, 154, 0.15); color: #02c39a; padding: 8px 14px; border-radius: 8px; font-size: 0.75em; font-weight: 700; }
+        .card-date { font-size: 0.9em; color: #cbd5e1; margin-bottom: 15px; }
+        .card-title { font-size: 1.15em; font-weight: 700; color: #ffffff; margin-bottom: 16px; line-height: 1.5; }
+        .meta-tag { background: rgba(255, 255, 255, 0.08); padding: 6px 12px; border-radius: 6px; font-size: 0.8em; color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.1); font-weight: 500; margin-bottom: 16px; display: inline-block; }
+        .status { padding: 8px 14px; border-radius: 8px; font-size: 0.8em; font-weight: 700; display: inline-block; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; }
+        .status.agendado { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .status.rascunho { background: rgba(245, 158, 11, 0.15); color: #fde047; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .resumo { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(2, 195, 154, 0.2); border-radius: 16px; padding: 40px; margin-bottom: 60px; }
+        .resumo h2 { font-size: 2em; margin-bottom: 30px; color: #02c39a; border-bottom: 3px solid #02c39a; padding-bottom: 15px; }
+        .resumo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .resumo-card { background: rgba(255, 255, 255, 0.05); border-left: 4px solid #02c39a; padding: 25px; border-radius: 12px; transition: all 0.3s ease; }
+        .resumo-card[data-marca="Pier 8"] { border-left-color: #3B82F6; }
+        .resumo-card[data-marca="Trust Serviços"] { border-left-color: #10B981; }
+        .resumo-card[data-marca="Navigal"] { border-left-color: #8B5CF6; }
+        .resumo-card[data-marca="Taglog"] { border-left-color: #F59E0B; }
+        .resumo-card:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-3px); }
+        .resumo-card h3 { margin-bottom: 15px; font-size: 1.2em; font-weight: 700; }
+        .resumo-card[data-marca="Pier 8"] h3 { color: #3B82F6; }
+        .resumo-card[data-marca="Trust Serviços"] h3 { color: #10B981; }
+        .resumo-card[data-marca="Navigal"] h3 { color: #8B5CF6; }
+        .resumo-card[data-marca="Taglog"] h3 { color: #F59E0B; }
+        .resumo-stat { display: flex; justify-content: space-between; margin: 12px 0; font-size: 0.9em; padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .resumo-stat strong { color: #ffffff; font-weight: 700; }
+        footer { background: rgba(255, 255, 255, 0.02); border-top: 1px solid rgba(2, 195, 154, 0.2); padding: 50px 40px; border-radius: 16px 16px 0 0; margin-top: 80px; text-align: center; }
+        footer h3 { color: #02c39a; margin-bottom: 25px; font-size: 1.5em; }
+        footer ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        footer li { color: #cbd5e1; font-size: 0.95em; line-height: 1.8; }
+        footer li strong { color: #02c39a; }
+        .update-date { color: #64748b; font-size: 0.9em; margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .loading { text-align: center; padding: 60px; color: #02c39a; font-size: 1.2em; }
+        .loading-spinner { display: inline-block; width: 40px; height: 40px; border: 4px solid rgba(2, 195, 154, 0.2); border-top-color: #02c39a; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error-msg { text-align: center; padding: 40px; color: #f87171; font-size: 1.1em; background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: 12px; margin-bottom: 40px; }
         @media (max-width: 768px) {
             header { padding: 40px 20px; margin-bottom: 40px; }
             header h1 { font-size: 2em; }
@@ -416,21 +112,30 @@
             <div class="month-display">JUNHO 2026</div>
         </header>
 
-        <div class="stats-grid" id="statsGrid"></div>
-
-        <div class="controls">
-            <button class="btn active" onclick="filterMarca('all')">Todas as Marcas</button>
-            <button class="btn" onclick="filterMarca('Pier 8')">🔵 Pier 8</button>
-            <button class="btn" onclick="filterMarca('Trust Serviços')">🟢 Trust Serviços</button>
-            <button class="btn" onclick="filterMarca('Navigal')">🟣 Navigal</button>
-            <button class="btn" onclick="filterMarca('Taglog')">🟠 Taglog</button>
+        <div id="loadingMsg" class="loading">
+            <div class="loading-spinner"></div>
+            <div>Carregando dados da planilha...</div>
         </div>
 
-        <div id="cardsView" class="cards-grid"></div>
+        <div id="errorMsg" class="error-msg" style="display:none;"></div>
 
-        <div class="resumo">
-            <h2>📊 Resumo por Marca</h2>
-            <div class="resumo-grid" id="resumoGrid"></div>
+        <div id="mainContent" style="display:none;">
+            <div class="stats-grid" id="statsGrid"></div>
+
+            <div class="controls">
+                <button class="btn active" onclick="filterMarca('all')">Todas as Marcas</button>
+                <button class="btn" onclick="filterMarca('Pier 8')">🔵 Pier 8</button>
+                <button class="btn" onclick="filterMarca('Trust Serviços')">🟢 Trust Serviços</button>
+                <button class="btn" onclick="filterMarca('Navigal')">🟣 Navigal</button>
+                <button class="btn" onclick="filterMarca('Taglog')">🟠 Taglog</button>
+            </div>
+
+            <div id="cardsView" class="cards-grid"></div>
+
+            <div class="resumo">
+                <h2>📊 Resumo por Marca</h2>
+                <div class="resumo-grid" id="resumoGrid"></div>
+            </div>
         </div>
 
         <footer>
@@ -441,25 +146,88 @@
                 <li><strong>Status "Rascunho":</strong> Aguardando validação</li>
             </ul>
             <div class="update-date">
-                ✅ Última atualização: <strong id="updateDate">Agora</strong> | Responsável: Maiara | Validação: Den
+                ✅ Última atualização: <strong id="updateDate">Carregando...</strong> | Responsável: Maiara | Validação: Den
             </div>
         </footer>
     </div>
 
     <script>
+        var SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTnTuGnFGAQJFPgZvX_TOsq8o6V9RmY2vHgribBL18I4E_gCKesEf6714wg_cUvo6GJqlJDlHAoNHHs/pub?output=csv&cachebust=" + Date.now();
+
         var cronogramaData = [];
         var currentMarcaFilter = "all";
 
-        function loadData() {
-            try {
-                var savedData = localStorage.getItem('cronogramaData');
-                if (savedData) {
-                    cronogramaData = JSON.parse(savedData);
-                }
-            } catch(e) {
-                console.log('localStorage error:', e);
+        function parseCSV(text) {
+            var lines = text.split("\n");
+            var data = [];
+            
+            for (var i = 1; i < lines.length; i++) {
+                var line = lines[i].trim();
+                if (!line) continue;
+                
+                var fields = line.split(",");
+                if (fields.length < 7) continue;
+                
+                var semana = fields[0].trim().replace(/"/g, "");
+                var dia = fields[1].trim().replace(/"/g, "");
+                var dataField = fields[2].trim().replace(/"/g, "");
+                var marca = fields[3].trim().replace(/"/g, "");
+                var tema = fields[4].trim().replace(/"/g, "");
+                var rede = fields[5].trim().replace(/"/g, "");
+                var status = fields[6].trim().replace(/"/g, "").toLowerCase();
+
+                if (!marca || !tema) continue;
+
+                var semanaNum = parseInt(semana);
+                if (isNaN(semanaNum)) semanaNum = 1;
+
+                data.push({
+                    semana: semanaNum,
+                    dia: dia,
+                    data: dataField,
+                    marca: marca,
+                    tema: tema,
+                    rede: rede,
+                    status: status
+                });
             }
-            renderAll();
+            return data;
+        }
+
+        function loadFromSheets() {
+            fetch(SHEET_URL)
+                .then(function(response) {
+                    if (!response.ok) throw new Error("Erro HTTP: " + response.status);
+                    return response.text();
+                })
+                .then(function(csvText) {
+                    cronogramaData = parseCSV(csvText);
+                    
+                    if (cronogramaData.length === 0) {
+                        showError("Nenhum dado encontrado na planilha. Verifique se as colunas estão corretas: SEMANA, DIA, DATA, MARCA, TEMA, REDE, STATUS");
+                        return;
+                    }
+
+                    document.getElementById("loadingMsg").style.display = "none";
+                    document.getElementById("mainContent").style.display = "block";
+                    
+                    var now = new Date();
+                    document.getElementById("updateDate").textContent = 
+                        now.toLocaleDateString("pt-BR") + " " + now.toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"});
+
+                    renderAll();
+                })
+                .catch(function(err) {
+                    console.error("Erro ao carregar planilha:", err);
+                    showError("Erro ao carregar dados. Verifique se a planilha está publicada na web. (" + err.message + ")");
+                });
+        }
+
+        function showError(msg) {
+            document.getElementById("loadingMsg").style.display = "none";
+            var errorEl = document.getElementById("errorMsg");
+            errorEl.textContent = "⚠ " + msg;
+            errorEl.style.display = "block";
         }
 
         function renderAll() {
@@ -469,50 +237,42 @@
         }
 
         function renderStats() {
-            var grid = document.getElementById('statsGrid');
-            grid.innerHTML = '';
-
+            var grid = document.getElementById("statsGrid");
+            grid.innerHTML = "";
             var total = cronogramaData.length;
             var agendadas = 0;
             var rascunhos = 0;
             var marcasSet = {};
-
             for (var i = 0; i < cronogramaData.length; i++) {
-                if (cronogramaData[i].status === 'agendado') agendadas++;
-                if (cronogramaData[i].status === 'rascunho') rascunhos++;
+                if (cronogramaData[i].status === "agendado") agendadas++;
+                if (cronogramaData[i].status === "rascunho") rascunhos++;
                 marcasSet[cronogramaData[i].marca] = true;
             }
-
             var stats = [
-                { label: 'Total de Postagens', value: total },
-                { label: 'Agendadas', value: agendadas },
-                { label: 'Em Rascunho', value: rascunhos },
-                { label: 'Marcas Ativas', value: Object.keys(marcasSet).length }
+                { label: "Total de Postagens", value: total },
+                { label: "Agendadas", value: agendadas },
+                { label: "Em Rascunho", value: rascunhos },
+                { label: "Marcas Ativas", value: Object.keys(marcasSet).length }
             ];
-
             for (var i = 0; i < stats.length; i++) {
-                var card = document.createElement('div');
-                card.className = 'stat-card';
+                var card = document.createElement("div");
+                card.className = "stat-card";
                 card.innerHTML = '<div class="stat-number">' + stats[i].value + '</div><div class="stat-label">' + stats[i].label + '</div>';
                 grid.appendChild(card);
             }
         }
 
         function renderCards() {
-            var container = document.getElementById('cardsView');
-            container.innerHTML = '';
-
+            var container = document.getElementById("cardsView");
+            container.innerHTML = "";
             for (var i = 0; i < cronogramaData.length; i++) {
                 var post = cronogramaData[i];
-                if (currentMarcaFilter !== 'all' && post.marca !== currentMarcaFilter) continue;
-
-                var card = document.createElement('div');
-                card.className = 'post-card';
-                card.setAttribute('data-marca', post.marca);
-
-                var statusClass = post.status === 'agendado' ? 'agendado' : 'rascunho';
-                var statusText = post.status === 'agendado' ? '✓ Agendado' : '⚠ Rascunho';
-
+                if (currentMarcaFilter !== "all" && post.marca !== currentMarcaFilter) continue;
+                var card = document.createElement("div");
+                card.className = "post-card";
+                card.setAttribute("data-marca", post.marca);
+                var statusClass = post.status === "agendado" ? "agendado" : "rascunho";
+                var statusText = post.status === "agendado" ? "✓ Agendado" : "⚠ Rascunho";
                 card.innerHTML = 
                     '<div class="card-header">' +
                         '<span class="marca-badge">' + post.marca + '</span>' +
@@ -522,77 +282,52 @@
                     '<div class="card-title">' + post.tema + '</div>' +
                     '<div class="meta-tag">📱 ' + post.rede + '</div>' +
                     '<span class="status ' + statusClass + '">' + statusText + '</span>';
-
                 container.appendChild(card);
             }
         }
 
         function renderResumo() {
-            var grid = document.getElementById('resumoGrid');
-            grid.innerHTML = '';
-
-            var marcas = ['Pier 8', 'Trust Serviços', 'Navigal', 'Taglog'];
-
+            var grid = document.getElementById("resumoGrid");
+            grid.innerHTML = "";
+            var marcas = ["Pier 8", "Trust Serviços", "Navigal", "Taglog"];
             for (var m = 0; m < marcas.length; m++) {
                 var marca = marcas[m];
                 var postagens = [];
-                
                 for (var i = 0; i < cronogramaData.length; i++) {
-                    if (cronogramaData[i].marca === marca) {
-                        postagens.push(cronogramaData[i]);
-                    }
+                    if (cronogramaData[i].marca === marca) postagens.push(cronogramaData[i]);
                 }
-                
                 if (postagens.length === 0) continue;
-
                 var agendadas = 0;
                 var rascunhos = 0;
-                
                 for (var i = 0; i < postagens.length; i++) {
-                    if (postagens[i].status === 'agendado') agendadas++;
-                    if (postagens[i].status === 'rascunho') rascunhos++;
+                    if (postagens[i].status === "agendado") agendadas++;
+                    if (postagens[i].status === "rascunho") rascunhos++;
                 }
-
-                var card = document.createElement('div');
-                card.className = 'resumo-card';
-                card.setAttribute('data-marca', marca);
-
+                var card = document.createElement("div");
+                card.className = "resumo-card";
+                card.setAttribute("data-marca", marca);
                 card.innerHTML = 
                     '<h3>' + marca + '</h3>' +
-                    '<div class="resumo-stat">' +
-                        '<span>Total:</span>' +
-                        '<strong>' + postagens.length + '</strong>' +
-                    '</div>' +
-                    '<div class="resumo-stat">' +
-                        '<span>Agendadas:</span>' +
-                        '<strong>' + agendadas + '</strong>' +
-                    '</div>' +
-                    '<div class="resumo-stat">' +
-                        '<span>Rascunho:</span>' +
-                        '<strong>' + rascunhos + '</strong>' +
-                    '</div>';
-
+                    '<div class="resumo-stat"><span>Total:</span><strong>' + postagens.length + '</strong></div>' +
+                    '<div class="resumo-stat"><span>Agendadas:</span><strong>' + agendadas + '</strong></div>' +
+                    '<div class="resumo-stat"><span>Rascunho:</span><strong>' + rascunhos + '</strong></div>';
                 grid.appendChild(card);
             }
         }
 
         function filterMarca(marca) {
             currentMarcaFilter = marca;
-            var buttons = document.getElementsByClassName('btn');
+            var buttons = document.getElementsByClassName("btn");
             for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
+                buttons[i].classList.remove("active");
             }
-            event.target.classList.add('active');
+            event.target.classList.add("active");
             renderCards();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadData();
+        document.addEventListener("DOMContentLoaded", function() {
+            loadFromSheets();
         });
-        
-        setInterval(function() {
-            loadData();
-        }, 5000);
     </script>
 </body>
 </html>
