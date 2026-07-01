@@ -145,7 +145,7 @@
     </div>
 
     <script>
-        var SHEET_URL = "https://docs.google.com/spreadsheets/d/1C8OninI7nHv4FqASJPRAWSdw1Lw4L5Hltrguhv0n1W8/export?format=csv&cachebust=" + Date.now();
+        var SHEET_URL = "https://script.google.com/macros/s/AKfycbzfmVQaMtyyQmSxjlogGSxlL7iVpPN0Pa9pb8y5KzAtK_1gFQuLx-RR85Hahvt0pMis/exec?cachebust=" + Date.now();
 
         var MESES = ["", "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"];
 
@@ -213,10 +213,23 @@
             fetch(SHEET_URL)
                 .then(function(response) {
                     if (!response.ok) throw new Error("Erro HTTP: " + response.status);
-                    return response.text();
+                    return response.json();
                 })
-                .then(function(csvText) {
-                    cronogramaData = parseCSV(csvText);
+                .then(function(data) {
+                    cronogramaData = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        var semanaNum = parseInt(item.semana);
+                        if (isNaN(semanaNum) || !item.marca || !item.tema) continue;
+                        cronogramaData.push({
+                            semana: semanaNum,
+                            dia: item.dia || "",
+                            data: item.data || "",
+                            marca: item.marca || "",
+                            tema: item.tema || "",
+                            rede: item.rede || ""
+                        });
+                    }
 
                     if (cronogramaData.length === 0) {
                         showError("Nenhum dado encontrado na planilha.");
@@ -235,7 +248,7 @@
                 })
                 .catch(function(err) {
                     console.error("Erro:", err);
-                    showError("Erro ao carregar dados. Verifique se a planilha está publicada na web. (" + err.message + ")");
+                    showError("Erro ao carregar dados. (" + err.message + ")");
                 });
         }
 
